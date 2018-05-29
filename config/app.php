@@ -1,3 +1,5 @@
+timezone =>'Asia/Tokyo',
+
 <?php
 
 return [
