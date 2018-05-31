@@ -10,11 +10,8 @@ use App\Task;
 
 class TasksController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
+   
     public function index()
     {
         $tasks= Task::all();
@@ -24,11 +21,7 @@ class TasksController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function create()
     {
         $task = new Task;
@@ -37,12 +30,8 @@ class TasksController extends Controller
             'task' => $task,
         ]);
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+  
+  
     public function store(Request $request)
     {
         $task = new Task;
@@ -52,12 +41,6 @@ class TasksController extends Controller
         return redirect('/');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $task = Task::find($id);
@@ -72,7 +55,7 @@ class TasksController extends Controller
         $task = Task::find($id);
 
         return view('tasks.edit', [
-            'task' => $task,
+            'tasks' => $task,
             ]);
     }
 
