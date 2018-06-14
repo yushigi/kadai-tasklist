@@ -14,6 +14,8 @@ class TasksController extends Controller
    
     public function index()
     {
+            
+            
         $data = [];
         if (\Auth::check()) {
             $user = \Auth::user();
@@ -48,13 +50,14 @@ class TasksController extends Controller
             'content' => 'required|max:191',
         ]);
         
-        $task = new Task;
-        $task->status = $request->status;
-        $task->content = $request->content;
-        $task->save();
+       // $task = new Task;
+       // $task->status = $request->status;
+       // $task->content = $request->content;
+       // $task->save();
         
-        $request->user()->microposts()->create([
+        $request->user()->tasks()->create([
             'content' => $request->content,
+            'status'=>$request->status,
         ]);
 
         return redirect('/');
@@ -63,20 +66,30 @@ class TasksController extends Controller
     public function show($id)
     {
         $task = Task::find($id);
-
-        return view('tasks.show', [
-            'task' => $task,
-        ]);
+        if(\Auth::user()->id === $task->user_id){
+            return view ('tasks.show',[
+                ]
+                );
+        }
+        else{
+            return redirect()->back();
+        }
     }
 
     public function edit($id)
     {
         $task = Task::find($id);
-
-        return view('tasks.edit', [
-            'tasks' => $task,
-            ]);
+        if(\Auth::user()->id ===$task->user_id){
+            
+            return view('tasks.edit',[
+                'task' =>$task,
+                ]);
+        }
+        
+        
+        return redirect() ->back();
     }
+       
 
     public function update(Request $request, $id)
     {
@@ -95,9 +108,13 @@ class TasksController extends Controller
 
     public function destroy($id)
     {
+        $task = \App\Task::find($id);
+        
+        
         if (\Auth::user()->id === $task->user_id) {
             $task->delete();
         }
-        return redirect('/');
+        
+        return redirect()->back();
     }
 }

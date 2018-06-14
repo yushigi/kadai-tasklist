@@ -2,7 +2,7 @@
 
 @section('content')
 
- <div class="alert alert-success" role="alert"><h1>id = {{ $task->id }} のタスク詳細ページ</h1></div>
+ <h1>id = {{ $task->id }} のタスク詳細ページ</h1>
  
      <table class="table table-bordered">
         <tr>
